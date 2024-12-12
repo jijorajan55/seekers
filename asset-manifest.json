@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/Seerkers/static/css/main.43b57933.css",
+    "main.js": "/Seerkers/static/js/main.b3c632dc.js",
+    "static/js/488.59ce67ce.chunk.js": "/Seerkers/static/js/488.59ce67ce.chunk.js",
+    "static/media/blog-image.jpg": "/Seerkers/static/media/blog-image.907ac25cab66c523c8ec.jpg",
+    "static/media/employer-image.jpg": "/Seerkers/static/media/employer-image.2621f6fcf0b917cc2ac3.jpg",
+    "static/media/cta-image.jpg": "/Seerkers/static/media/cta-image.6bbc855d879e84f66412.jpg",
+    "static/media/job-image.jpg": "/Seerkers/static/media/job-image.fbb06983cacc65e4292f.jpg",
+    "static/media/hero-image.jpg": "/Seerkers/static/media/hero-image.ed4c67e7503d5d71b440.jpg",
+    "static/media/logo.png": "/Seerkers/static/media/logo.63a25ff713f163ffe8c4.png",
+    "index.html": "/Seerkers/index.html",
+    "main.43b57933.css.map": "/Seerkers/static/css/main.43b57933.css.map",
+    "main.b3c632dc.js.map": "/Seerkers/static/js/main.b3c632dc.js.map",
+    "488.59ce67ce.chunk.js.map": "/Seerkers/static/js/488.59ce67ce.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.43b57933.css",
+    "static/js/main.b3c632dc.js"
+  ]
+}
