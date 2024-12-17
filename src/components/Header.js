@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import logo from "../assets/logo.png";
 
 const Header = () => {
-  const [activeCategory, setActiveCategory] = useState(null);
+  const [activeDropdown, setActiveDropdown] = useState(null);
+  const [hoverTimeout, setHoverTimeout] = useState(null);
 
-  // Categories and their sub-branches
   const categories = [
     {
       name: "Accounts / Taxation / Audit",
@@ -67,119 +67,179 @@ const Header = () => {
         "Store/Warehouse Supervisor",
       ],
     },
-  ];
+  ];  
+
+  const dropdowns = {
+    services: [
+      "Professional CV Writing",
+      "Career Counselling",
+      "Job Search & Interview Training",
+      "Job Search Assistance",
+      "Social Media Presence",
+      "Job Alerts",
+      "CV Highlight / Featured Profile",
+      "CV Distribution",
+      "Webinar (Interview Training)",
+    ],
+    employerServices: [
+      "Job Posting",
+      "CV Search",
+      "Recruitment Software",
+      "Employer Branding",
+      "End to End Recruitment",
+      "RPO",
+      "Training & Induction",
+    ],
+    learning: ["Candidates", "Employers"],
+    registration: ["Candidate Registration", "Employer Registration"],
+  };  
+
+  // Handle Mouse Enter
+  const handleMouseEnter = (dropdownName) => {
+    if (hoverTimeout) clearTimeout(hoverTimeout);
+    setActiveDropdown(dropdownName);
+  };
+
+  // Handle Mouse Leave
+  const handleMouseLeave = () => {
+    const timeout = setTimeout(() => setActiveDropdown(null), 300); // 300ms delay
+    setHoverTimeout(timeout);
+  };
 
   return (
     <header className="bg-white shadow-md">
-  {/* Top Bar */}
-  <div className="flex items-center justify-between py-4 px-6 container mx-auto">
-    {/* Logo */}
-    <div className="ml-4 flex justify-start">
-      <img src={logo} alt="Logo" className="h-[90px] w-auto" />
-    </div>
-    {/* Authentication Buttons */}
-    <div className="flex space-x-4">
-      <button className="py-2 px-4 bg-blue-600 text-white rounded hover:bg-blue-700">
-        Login
-      </button>
-      <button className="py-2 px-4 bg-gray-100 border border-gray-300 rounded hover:bg-gray-200">
-        Register
-      </button>
-    </div>
-  </div>
+      <div className="flex items-center justify-between py-4 px-6 container mx-auto">
+        <div>
+          <img src={logo} alt="Logo" className="h-[90px] w-auto" />
+        </div>
+        <div className="flex space-x-4">
+          <button className="py-2 px-4 bg-blue-600 text-white rounded hover:bg-blue-700">
+            Login
+          </button>
+          <button className="py-2 px-4 bg-gray-100 border border-gray-300 rounded hover:bg-gray-200">
+            Register
+          </button>
+        </div>
+      </div>
 
-  {/* Navigation */}
-  <nav className="bg-gray-100">
-    <ul className="flex justify-center space-x-6 py-4">
-      <li>
-        <a href="/" className="text-gray-700 hover:text-blue-600 no-underline">
-          Home
-        </a>
-      </li>
-      <li className="relative group">
-        <button
-          onClick={() =>
-            setActiveCategory(activeCategory === "all-jobs" ? null : "all-jobs")
-          }
-          className="text-gray-700 hover:text-blue-600 no-underline"
-        >
-          All Jobs
-        </button>
-        {/* Dropdown for All Jobs */}
-        {activeCategory === "all-jobs" && (
-          <div className="absolute left-0 mt-2 bg-white shadow-lg rounded-md w-80 z-10">
-            <div className="p-4">
-              {categories.map((category, index) => (
-                <div
-                  key={index}
-                  onMouseEnter={() => setActiveCategory(category.name)}
-                  onMouseLeave={() => setActiveCategory("all-jobs")}
-                  className="mb-4"
-                >
-                  <h4 className="font-bold text-gray-800">{category.name}</h4>
-                  {/* Sub-branches */}
-                  {activeCategory === category.name && (
-                    <ul className="pl-4 mt-2">
-                      {category.subBranches.map((branch, branchIndex) => (
-                        <li
-                          key={branchIndex}
-                          className="text-gray-600 hover:text-blue-600"
-                        >
-                          {branch}
+      <nav className="bg-gray-100">
+        <ul className="flex justify-center space-x-6 py-4">
+          {/* Home */}
+          <li>
+            <a href="/" className="text-gray-700 hover:text-blue-600 no-underline">
+              Home
+            </a>
+          </li>
+
+          {/* All Jobs */}
+          <li
+            className="relative group"
+            onMouseEnter={() => handleMouseEnter("allJobs")}
+            onMouseLeave={handleMouseLeave}
+          >
+            <span className="text-gray-700 hover:text-blue-600 cursor-pointer">All Jobs</span>
+            {activeDropdown === "allJobs" && (
+              <div className="absolute top-10 left-0 bg-white shadow-lg p-6 grid grid-cols-2 gap-4 w-[600px] z-10 pointer-events-auto">
+                {categories.map((category, idx) => (
+                  <div key={idx}>
+                    <h4 className="font-bold text-gray-800 mb-2">{category.name}</h4>
+                    <ul>
+                      {category.subBranches.map((item, i) => (
+                        <li key={i} className="text-gray-600 hover:text-blue-600 cursor-pointer">
+                          {item}
                         </li>
                       ))}
                     </ul>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-      </li>
-      <li>
-        <a
-          href="/candidate-services"
-          className="text-gray-700 hover:text-blue-600 no-underline"
-        >
-          Candidate Services
-        </a>
-      </li>
-      <li>
-        <a
-          href="/employer-services"
-          className="text-gray-700 hover:text-blue-600 no-underline"
-        >
-          Employer Services
-        </a>
-      </li>
-      <li>
-        <a
-          href="/learning"
-          className="text-gray-700 hover:text-blue-600 no-underline"
-        >
-          Learning
-        </a>
-      </li>
-      <li>
-        <a
-          href="/registration"
-          className="text-gray-700 hover:text-blue-600 no-underline"
-        >
-          Registration
-        </a>
-      </li>
-      <li>
-        <a
-          href="/contact-us"
-          className="text-gray-700 hover:text-blue-600 no-underline"
-        >
-          Contact Us
-        </a>
-      </li>
-    </ul>
-  </nav>
-</header>
-);
+                  </div>
+                ))}
+              </div>
+            )}
+          </li>
+
+          {/* Services */}
+          <li
+            className="relative group"
+            onMouseEnter={() => handleMouseEnter("services")}
+            onMouseLeave={handleMouseLeave}
+          >
+            <span className="text-gray-700 hover:text-blue-600 cursor-pointer">Services</span>
+            {activeDropdown === "services" && (
+              <ul className="absolute top-10 left-0 bg-white shadow-lg rounded-md p-4 w-60 z-10 pointer-events-auto">
+                {dropdowns.services.map((item, idx) => (
+                  <li key={idx} className="text-gray-600 hover:text-blue-600 cursor-pointer">
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
+
+          {/* Employer Services */}
+          <li
+            className="relative group"
+            onMouseEnter={() => handleMouseEnter("employerServices")}
+            onMouseLeave={handleMouseLeave}
+          >
+            <span className="text-gray-700 hover:text-blue-600 cursor-pointer">
+              Employer Services
+            </span>
+            {activeDropdown === "employerServices" && (
+              <ul className="absolute top-10 left-0 bg-white shadow-lg rounded-md p-4 w-60 z-10 pointer-events-auto">
+                {dropdowns.employerServices.map((item, idx) => (
+                  <li key={idx} className="text-gray-600 hover:text-blue-600 cursor-pointer">
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
+
+          {/* Learning */}
+          <li
+            className="relative group"
+            onMouseEnter={() => handleMouseEnter("learning")}
+            onMouseLeave={handleMouseLeave}
+          >
+            <span className="text-gray-700 hover:text-blue-600 cursor-pointer">Learning</span>
+            {activeDropdown === "learning" && (
+              <ul className="absolute top-10 left-0 bg-white shadow-lg rounded-md p-4 w-60 z-10">
+                {dropdowns.learning.map((item, idx) => (
+                  <li key={idx} className="text-gray-600 hover:text-blue-600 cursor-pointer">
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
+
+          {/* Registration */}
+          <li
+            className="relative group"
+            onMouseEnter={() => handleMouseEnter("registration")}
+            onMouseLeave={handleMouseLeave}
+          >
+            <span className="text-gray-700 hover:text-blue-600 cursor-pointer">Registration</span>
+            {activeDropdown === "registration" && (
+              <ul className="absolute top-10 left-0 bg-white shadow-lg rounded-md p-4 w-60 z-10">
+                {dropdowns.registration.map((item, idx) => (
+                  <li key={idx} className="text-gray-600 hover:text-blue-600 cursor-pointer">
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
+
+          {/* Contact Us */}
+          <li>
+            <a href="/contact-us" className="text-gray-700 hover:text-blue-600 no-underline">
+              Contact Us
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+  );
 };
 
 export default Header;
