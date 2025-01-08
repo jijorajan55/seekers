@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import heroImage from "../assets/hero-image.jpg";
+import Slider from "react-slick"; // Carousel library (react-slick)
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+import heroImage1 from "../assets/hero-image1.jpg";
+import heroImage2 from "../assets/hero-image2.jpg";
+import heroImage3 from "../assets/hero-image3.jpg";
+
 import ctaImage from "../assets/cta-image.jpg";
 import employerImage from "../assets/employer-image.jpg";
 import blogImage from "../assets/blog-image.jpg";
@@ -11,208 +18,298 @@ const Hero = () => {
   const [keyword, setKeyword] = useState("");
   const [dynamicText, setDynamicText] = useState("Developer");
   const [filteredSuggestions, setFilteredSuggestions] = useState([]);
-
+  
   const suggestions = ["Developer", "Designer", "Marketing", "Engineer"];
-
+  
   useEffect(() => {
     const roles = ["Developer", "Designer", "Marketer", "Engineer"];
-    let index = 0;
-    const interval = setInterval(() => {
+     let index = 0;
+      const interval = setInterval(() => {
       index = (index + 1) % roles.length;
       setDynamicText(roles[index]);
-    }, 2000);
+     }, 2000);
     return () => clearInterval(interval);
-  }, []);
+   }, []);
+  
+    const handleKeywordChange = (e) => {
+      const input = e.target.value;
+      setKeyword(input);
+      if (input) {
+        setFilteredSuggestions(
+          suggestions.filter((s) =>
+            s.toLowerCase().startsWith(input.toLowerCase())
+          )
+        );
+      } else {
+        setFilteredSuggestions([]);
+      }
+    };
+  
+    const handleSearch = () => {
+      if (!keyword && !category && !location) {
+        alert("Please enter at least one search criterion.");
+        return;
+      }
+      console.log("Searching for:", { category, location, keyword });
+    };
+  
+    const sliderSettings = {
+      dots: true,
+      infinite: true,
+      speed: 500,
+      slidesToShow: 1, 
+      slidesToScroll: 1, 
+      autoplay: true, 
+      autoplaySpeed: 3000, 
+      adaptiveHeight: true, 
+      centerMode: false,
+    };    
+  
+    return (
+      <>
+        {/* Hero Section */}
+        <section className="relative bg-gray-900 text-white">
+        {/* Carousel */}
+        <Slider {...sliderSettings}>
+  <div>
+    <img
+      src={heroImage1}
+      alt="Hero Slide 1"
+      style={{ width: "100%", height: "400px", objectFit: "cover" }}
+    />
+  </div>
+  <div>
+    <img
+      src={heroImage2}
+      alt="Hero Slide 2"
+      style={{ width: "100%", height: "400px", objectFit: "cover" }}
+    />
+  </div>
+  <div>
+    <img
+      src={heroImage3}
+      alt="Hero Slide 3"
+      style={{ width: "100%", height: "400px", objectFit: "cover" }}
+    />
+  </div>
+</Slider>
 
-  const handleKeywordChange = (e) => {
-    const input = e.target.value;
-    setKeyword(input);
-    if (input) {
-      setFilteredSuggestions(
-        suggestions.filter((s) =>
-          s.toLowerCase().startsWith(input.toLowerCase())
-        )
-      );
-    } else {
-      setFilteredSuggestions([]);
-    }
-  };
 
-  const handleSearch = () => {
-    if (!keyword && !category && !location) {
-      alert("Please enter at least one search criterion.");
-      return;
-    }
-    console.log("Searching for:", { category, location, keyword });
-  };
+  {/* Content Overlay */}
+  <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-center px-4">
+    <h1 className="text-4xl font-bold mb-4 animate-fadeIn">
+      Find Your Dream <span className="text-blue-500">{dynamicText}</span> Job Today
+    </h1>
 
-  return (
-    <>
-      {/* Hero Section */}
-      <section className="relative bg-gray-900 text-white">
-        {/* Parallax Background Image */}
-        <img
-          src={heroImage}
-          alt="Hero Banner"
-          className="w-full h-[700px] object-cover"
+    {/* Search Fields */}
+    <div className="flex flex-wrap justify-center gap-4 animate-fadeIn mb-4">
+      <div className="relative w-60">
+        <input
+          type="text"
+          placeholder="Search by keywords"
+          value={keyword}
+          onChange={handleKeywordChange}
+          className="py-2 px-3 rounded border border-gray-300 text-gray-800 w-full"
         />
+        {filteredSuggestions.length > 0 && (
+          <ul className="absolute bg-white border mt-1 rounded w-full text-gray-800 z-10 shadow-lg">
+            {filteredSuggestions.map((s, index) => (
+              <li
+                key={index}
+                className="py-2 px-4 hover:bg-gray-100 cursor-pointer"
+                onClick={() => setKeyword(s)}
+              >
+                {s}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
 
-        {/* Content Overlay */}
-        <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-center px-4">
-          <h1 className="text-5xl font-bold mb-6 animate-fadeIn">
-            Find Your Dream <span className="text-blue-500">{dynamicText}</span> Job Today
-          </h1>
-          <p className="mb-8 text-xl animate-fadeIn">
-            Search among thousands of job listings and kickstart your career.
-          </p>
+      <input
+        type="text"
+        placeholder="Enter location"
+        value={location}
+        onChange={(e) => setLocation(e.target.value)}
+        className="py-2 px-3 rounded border border-gray-300 text-gray-800 w-60"
+      />
+    </div>
 
-          {/* Search Fields */}
-          <div className="flex flex-wrap justify-center gap-4 animate-fadeIn">
-            <div className="relative w-60">
-              <input
-                type="text"
-                placeholder="Search by keywords"
-                value={keyword}
-                onChange={handleKeywordChange}
-                className="py-3 px-4 rounded border border-gray-300 text-gray-800 w-full"
-              />
-              {filteredSuggestions.length > 0 && (
-                <ul className="absolute bg-white border mt-1 rounded w-full text-gray-800 z-10 shadow-lg">
-                  {filteredSuggestions.map((s, index) => (
-                    <li
-                      key={index}
-                      className="py-2 px-4 hover:bg-gray-100 cursor-pointer"
-                      onClick={() => setKeyword(s)}
-                    >
-                      {s}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
+    {/* Additional Search Fields */}
+    <div className="flex flex-wrap justify-center gap-4 mb-4">
+      <select
+        className="py-2 px-3 rounded border border-gray-300 text-gray-800 w-60"
+      >
+        <option value="">Select Sub Industry</option>
+        <option value="SubIndustry1">Sub Industry 1</option>
+        <option value="SubIndustry2">Sub Industry 2</option>
+        <option value="SubIndustry3">Sub Industry 3</option>
+      </select>
 
-            <select
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              className="py-3 px-4 rounded border border-gray-300 text-gray-800 w-60"
-            >
-              <option value="">Select Category</option>
-              <option value="IT">IT & Software</option>
-              <option value="Accounting">Accounting</option>
-              <option value="Sales">Sales & Marketing</option>
-              <option value="Logistics">Logistics</option>
-              <option value="HR">HR & Administration</option>
-            </select>
+      <select
+        className="py-2 px-3 rounded border border-gray-300 text-gray-800 w-60"
+      >
+        <option value="">Select Functional Area</option>
+        <option value="FunctionalArea1">Functional Area 1</option>
+        <option value="FunctionalArea2">Functional Area 2</option>
+        <option value="FunctionalArea3">Functional Area 3</option>
+      </select>
 
-            <input
-              type="text"
-              placeholder="Enter location"
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-              className="py-3 px-4 rounded border border-gray-300 text-gray-800 w-60"
-            />
+      <select
+        className="py-2 px-3 rounded border border-gray-300 text-gray-800 w-60"
+      >
+        <option value="">Select Designation</option>
+        <option value="Designation1">Designation 1</option>
+        <option value="Designation2">Designation 2</option>
+        <option value="Designation3">Designation 3</option>
+      </select>
+    </div>
 
-            <button
-              onClick={handleSearch}
-              className="bg-blue-600 text-white py-3 px-6 rounded hover:bg-blue-700 transition-transform transform hover:scale-105 animate-pulse"
-            >
-              Search
-            </button>
-          </div>
-        </div>
-      </section>
+    {/* Common Search Button */}
+    <button
+      onClick={handleSearch}
+      className="bg-blue-600 text-white py-2 px-6 rounded hover:bg-blue-700 transition-transform transform hover:scale-105 animate-pulse"
+    >
+      Search
+    </button>
+  </div>
+</section>
 
-      {/* Jobs Section */}
-      <section className="py-12 bg-gray-50">
-        <div className="container mx-auto flex flex-col md:flex-row gap-6 px-4">
-          <div className="bg-blue-50 shadow-md rounded-lg p-4 md:w-[45%] hover:shadow-lg transition-shadow">
-            <h3 className="text-xl font-bold text-gray-800 mb-4">Jobs By Location</h3>
-            <div className="flex flex-wrap gap-2">
-              {["UAE", "Saudi Arabia", "Qatar", "Kuwait", "Oman", "Bahrain", "Abu Dhabi", "Dubai", "Sharjah", "Riyadh"].map(
-                (location, index) => (
-                  <button
-                    key={index}
-                    className="py-1 px-3 border border-gray-300 rounded-full text-gray-600 hover:text-blue-600 hover:border-blue-600 transition-colors text-sm"
-                  >
-                    {location}
-                  </button>
-                )
-              )}
-              <button className="py-1 px-3 text-blue-600 border border-blue-600 rounded-full hover:bg-blue-600 hover:text-white transition-colors text-sm">
-                +39 More
-              </button>
-            </div>
-          </div>
+{/* Jobs Section */}
+<section className="py-12 bg-gray-50">
+  <div className="container mx-auto grid md:grid-cols-3 gap-6 px-6">
+    {/* Jobs By Location */}
+    <div className="bg-blue-50 shadow-md rounded-lg p-4 hover:shadow-lg transition-shadow">
+      <h3 className="text-xl font-bold text-gray-800 mb-4">Jobs By Location</h3>
+      <div className="flex flex-wrap gap-2">
+        {[
+          "UAE",
+          "Saudi Arabia",
+          "Qatar",
+          "Kuwait",
+          "Oman",
+          "Bahrain",
+          "Abu Dhabi",
+          "Dubai",
+          "Sharjah",
+          "Riyadh",
+        ].map((location, index) => (
+          <button
+            key={index}
+            className="py-1 px-3 border border-gray-300 rounded-full text-gray-600 hover:text-blue-600 hover:border-blue-600 transition-colors text-sm"
+          >
+            {location}
+          </button>
+        ))}
+        <button className="py-1 px-3 text-blue-600 border border-blue-600 rounded-full hover:bg-blue-600 hover:text-white transition-colors text-sm">
+          +39 More
+        </button>
+      </div>
+    </div>
 
-          <div className="bg-blue-50 shadow-md rounded-lg p-4 md:w-[45%] hover:shadow-lg transition-shadow">
-            <h3 className="text-xl font-bold text-gray-800 mb-4">Jobs By Category</h3>
-            <div className="flex flex-wrap gap-2">
-              {["Top Management", "Accounts / Tax", "Banking / Financial Services", "Construction / Civil Engg", "HR / Industrial Relations"].map(
-                (category, index) => (
-                  <button
-                    key={index}
-                    className="py-1 px-3 border border-gray-300 rounded-full text-gray-600 hover:text-blue-600 hover:border-blue-600 transition-colors text-sm"
-                  >
-                    {category}
-                  </button>
-                )
-              )}
-              <button className="py-1 px-3 text-blue-600 border border-blue-600 rounded-full hover:bg-blue-600 hover:text-white transition-colors text-sm">
-                +97 More
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
+    {/* Jobs By Category */}
+    <div className="bg-blue-50 shadow-md rounded-lg p-4 hover:shadow-lg transition-shadow">
+      <h3 className="text-xl font-bold text-gray-800 mb-4">Jobs By Category</h3>
+      <div className="flex flex-wrap gap-2">
+        {[
+          "Top Management",
+          "Accounts / Tax",
+          "Banking / Financial Services",
+          "Construction / Civil Engg",
+          "HR / Industrial Relations",
+        ].map((category, index) => (
+          <button
+            key={index}
+            className="py-1 px-3 border border-gray-300 rounded-full text-gray-600 hover:text-blue-600 hover:border-blue-600 transition-colors text-sm"
+          >
+            {category}
+          </button>
+        ))}
+        <button className="py-1 px-3 text-blue-600 border border-blue-600 rounded-full hover:bg-blue-600 hover:text-white transition-colors text-sm">
+          +97 More
+        </button>
+      </div>
+    </div>
 
-      {/* Top Employers Section */}
+    {/* Jobs By Designation */}
+    <div className="bg-blue-50 shadow-md rounded-lg p-4 hover:shadow-lg transition-shadow">
+      <h3 className="text-xl font-bold text-gray-800 mb-4">Jobs By Designation</h3>
+      <div className="flex flex-wrap gap-2">
+        {[
+          "Software Engineer",
+          "Data Scientist",
+          "Product Manager",
+          "Marketing Specialist",
+          "Human Resources Manager",
+        ].map((designation, index) => (
+          <button
+            key={index}
+            className="py-1 px-3 border border-gray-300 rounded-full text-gray-600 hover:text-blue-600 hover:border-blue-600 transition-colors text-sm"
+          >
+            {designation}
+          </button>
+        ))}
+        <button className="py-1 px-3 text-blue-600 border border-blue-600 rounded-full hover:bg-blue-600 hover:text-white transition-colors text-sm">
+          +50 More
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+{/* Top Employers Section */}
 <section className="py-12 bg-gradient-to-r from-blue-50 to-gray-50">
   <div className="container mx-auto">
-    <div className="flex justify-between items-center mb-6">
+    <div className="flex justify-between items-center mb-6 px-6">
       <h2 className="text-3xl font-bold text-gray-800">Top Employers</h2>
-      <a href="#viewAllEmployers" className="text-blue-600 font-semibold hover:underline">
+      <a
+        href="#viewAllEmployers"
+        className="text-blue-600 font-semibold hover:underline"
+      >
         View All
       </a>
     </div>
-    <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-6">
-      {Array(4).fill(null).map((_, idx) => (
-        <div
-          key={idx}
-          className="relative bg-white shadow-md rounded-lg p-6 text-center transition-transform transform hover:scale-105 hover:shadow-lg"
-        >
-          <div className="w-24 h-24 mx-auto mb-4 rounded-full border-4 border-gray-200 bg-gradient-to-b from-blue-100 to-gray-100 overflow-hidden">
-            <img
-              src={employerImage}
-              alt={`Employer ${idx + 1} Logo`}
-              className="w-full h-full object-cover"
-            />
+    <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-6 px-6">
+      {Array(4)
+        .fill(null)
+        .map((_, idx) => (
+          <div
+            key={idx}
+            className="relative bg-white shadow-md rounded-lg p-6 text-center transition-transform transform hover:scale-105 hover:shadow-lg"
+          >
+            <div className="w-24 h-24 mx-auto mb-4 rounded-full border-4 border-gray-200 bg-gradient-to-b from-blue-100 to-gray-100 overflow-hidden">
+              <img
+                src={employerImage}
+                alt={`Employer ${idx + 1} Logo`}
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <h3 className="text-xl font-semibold mb-2 text-gray-800 hover:text-blue-600">
+              Employer {idx + 1}
+            </h3>
+            <p className="text-gray-600 mb-4">
+              Leading company in innovation and talent acquisition.
+            </p>
+            <span className="absolute top-2 right-2 bg-blue-500 text-white text-xs px-3 py-1 rounded-full">
+              Featured
+            </span>
+            <button className="bg-blue-600 text-white py-2 px-4 rounded-full hover:bg-blue-700">
+              View Jobs
+            </button>
           </div>
-          <h3 className="text-xl font-semibold mb-2 text-gray-800 hover:text-blue-600">
-            Employer {idx + 1}
-          </h3>
-          <p className="text-gray-600 mb-4">
-            Leading company in innovation and talent acquisition.
-          </p>
-          <span className="absolute top-2 right-2 bg-blue-500 text-white text-xs px-3 py-1 rounded-full">
-            Featured
-          </span>
-          <button className="bg-blue-600 text-white py-2 px-4 rounded-full hover:bg-blue-700">
-            View Jobs
-          </button>
-        </div>
-      ))}
+        ))}
     </div>
   </div>
 </section>
 
 
-      {/* Call to Action Section */}
+{/* Call to Action Section */}
 <section className="relative overflow-hidden">
   {/* Background Image */}
   <img
     src={ctaImage}
     alt="CTA Banner"
-    className="w-full h-[400px] object-cover"
+    className="w-full h-[300px] object-cover"
   />
 
   {/* Animated Gradient Overlay */}

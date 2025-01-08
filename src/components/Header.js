@@ -92,6 +92,7 @@ const Header = () => {
     ],
     learning: ["Candidates", "Employers"],
     registration: ["Candidate Registration", "Employer Registration"],
+    employer: ["Login", "Register"],
   };  
 
   // Handle Mouse Enter
@@ -108,9 +109,9 @@ const Header = () => {
 
   return (
     <header className="bg-white shadow-md">
-      <div className="flex items-center justify-between py-4 px-6 container mx-auto">
+      <div className="flex items-center justify-between py-2 px-6 container mx-auto">
         <div>
-          <img src={logo} alt="Logo" className="h-[90px] w-auto" />
+          <img src={logo} alt="Logo" className="h-[70px] w-auto" />
         </div>
         <div className="flex space-x-4">
           <button className="py-2 px-4 bg-blue-600 text-white rounded hover:bg-blue-700">
@@ -123,7 +124,7 @@ const Header = () => {
       </div>
 
       <nav className="bg-gray-100">
-        <ul className="flex justify-center space-x-6 py-4">
+        <ul className="flex justify-center space-x-6 py-3">
           {/* Home */}
           <li>
             <a href="/" className="text-gray-700 hover:text-blue-600 no-underline">
@@ -223,6 +224,29 @@ const Header = () => {
               <ul className="absolute top-10 left-0 bg-white shadow-lg rounded-md p-4 w-60 z-10">
                 {dropdowns.registration.map((item, idx) => (
                   <li key={idx} className="text-gray-600 hover:text-blue-600 cursor-pointer">
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
+
+          {/* Employer */}
+          <li
+            className="relative group"
+            onMouseEnter={() => handleMouseEnter("employer")}
+            onMouseLeave={handleMouseLeave}
+          >
+            <span className="text-gray-700 hover:text-blue-600 cursor-pointer">
+              Employer
+            </span>
+            {activeDropdown === "employer" && (
+              <ul className="absolute top-10 left-0 bg-white shadow-lg rounded-md p-4 w-40 z-10">
+                {dropdowns.employer.map((item, idx) => (
+                  <li
+                    key={idx}
+                    className="text-gray-600 hover:text-blue-600 cursor-pointer py-1"
+                  >
                     {item}
                   </li>
                 ))}
