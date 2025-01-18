@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/seekers/static/css/main.7d63b341.css",
-    "main.js": "/seekers/static/js/main.9bc9550c.js",
+    "main.css": "/seekers/static/css/main.ce72b481.css",
+    "main.js": "/seekers/static/js/main.90a99949.js",
     "static/js/755.606a3bb9.chunk.js": "/seekers/static/js/755.606a3bb9.chunk.js",
     "static/js/834.7484c939.chunk.js": "/seekers/static/js/834.7484c939.chunk.js",
     "static/css/397.5533c542.chunk.css": "/seekers/static/css/397.5533c542.chunk.css",
@@ -14,13 +14,20 @@
     "static/media/resume.jpg": "/seekers/static/media/resume.c6de14322df734f0908f.jpg",
     "static/media/resume2.jpg": "/seekers/static/media/resume2.d5f2cd658be976d06f95.jpg",
     "static/media/hero-image1.jpg": "/seekers/static/media/hero-image1.cc28a43f04516bdb43d0.jpg",
+    "static/media/jobAlerts.jpg": "/seekers/static/media/jobAlerts.9c8a7cfc6e3c218438e1.jpg",
+    "static/media/assistance.jpg": "/seekers/static/media/assistance.9c85cda7b1002f831177.jpg",
     "static/media/contact.jpg": "/seekers/static/media/contact.2f5dfdf43cd7a91a290e.jpg",
     "static/media/blog-image.jpg": "/seekers/static/media/blog-image.907ac25cab66c523c8ec.jpg",
+    "static/media/webinar.jpg": "/seekers/static/media/webinar.45e6ce8028a02637c587.jpg",
+    "static/media/training.jpg": "/seekers/static/media/training.5e2189ebe49675b966fc.jpg",
     "static/media/employer-image.jpg": "/seekers/static/media/employer-image.2621f6fcf0b917cc2ac3.jpg",
+    "static/media/career.jpg": "/seekers/static/media/career.4f56d6354458d24b9932.jpg",
+    "static/media/cvHighlight.jpg": "/seekers/static/media/cvHighlight.fe0626cb2aa53964c9ca.jpg",
     "static/media/cta-image.jpg": "/seekers/static/media/cta-image.6bbc855d879e84f66412.jpg",
     "static/media/hero-image2.jpg": "/seekers/static/media/hero-image2.b39d3f1e8f062e98d805.jpg",
     "static/media/hero-image3.jpg": "/seekers/static/media/hero-image3.d6ba63571d62db5fa0d6.jpg",
     "static/media/fa-solid-900.ttf": "/seekers/static/media/fa-solid-900.2582b0e4bcf85eceead0.ttf",
+    "static/media/socialMedia.jpg": "/seekers/static/media/socialMedia.cbaf1f21a694a438f55b.jpg",
     "static/media/job-image.jpg": "/seekers/static/media/job-image.fbb06983cacc65e4292f.jpg",
     "static/media/fa-brands-400.ttf": "/seekers/static/media/fa-brands-400.1815e00441357e01619e.ttf",
     "static/media/fa-solid-900.woff2": "/seekers/static/media/fa-solid-900.2463b90d9a316e4e5294.woff2",
@@ -35,8 +42,8 @@
     "static/media/slick.ttf": "/seekers/static/media/slick.c94f7671dcc99dce43e2.ttf",
     "index.html": "/seekers/index.html",
     "static/media/slick.woff": "/seekers/static/media/slick.295183786cd8a1389865.woff",
-    "main.7d63b341.css.map": "/seekers/static/css/main.7d63b341.css.map",
-    "main.9bc9550c.js.map": "/seekers/static/js/main.9bc9550c.js.map",
+    "main.ce72b481.css.map": "/seekers/static/css/main.ce72b481.css.map",
+    "main.90a99949.js.map": "/seekers/static/js/main.90a99949.js.map",
     "755.606a3bb9.chunk.js.map": "/seekers/static/js/755.606a3bb9.chunk.js.map",
     "834.7484c939.chunk.js.map": "/seekers/static/js/834.7484c939.chunk.js.map",
     "397.5533c542.chunk.css.map": "/seekers/static/css/397.5533c542.chunk.css.map",
@@ -48,7 +55,7 @@
     "872.233e3f45.chunk.js.map": "/seekers/static/js/872.233e3f45.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.7d63b341.css",
-    "static/js/main.9bc9550c.js"
+    "static/css/main.ce72b481.css",
+    "static/js/main.90a99949.js"
   ]
 }
